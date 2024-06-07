@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:26:45 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/05/31 16:42:56 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:44:37 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ typedef struct s_philo
     pthread_mutex_t *fork_direito;
 } t_philo;
 
-void boot_philosofos(t_philo *philo, t_table *table, int id);
-t_philo *memory_philofos(t_philo *philos, int num);
+t_philo *boot_philosofos(t_philo *philo, t_table *table, int id);
+t_philo *memory_philofos(int num);
 int    memory_forks_mutex(t_table *table);
 int boot_forks_mutex(t_table *table);
-t_philo *memory_philofos(t_philo *philos, int num);
-void boot_philosofos(t_philo *philo, t_table *table, int id);
+void create_philos (t_table *table);
+void *routine_philo(void *arg);
 
 
 #endif

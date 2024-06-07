@@ -1,8 +1,8 @@
-NAME = philos.a
+NAME = philos
 
 CC = cc
 
-GFLAGS = -Wall -Wextra -Werror
+GFLAGS = -Wall -Wextra -Werror 
 
 SOURCES = main.c \
 	  initialize_table.c \

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:03 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/05/31 19:38:32 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:38:50 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ int boot_forks_mutex(t_table *table)
 
 //funcao para alocar memoria nos philosofos
 
-t_philo *memory_philofos(t_philo *philos, int num)
+t_philo *memory_philofos(int num)
 {
-    philos = malloc (num * sizeof(t_philo));
-    if(!philos)
-    {
-        printf("%s", "Erro ao alocar memória para os philosofos\n");
-        return(0);   
-    }
-    return(philos);   
+    t_philo *philos_m;
+    
+    philos_m = malloc (num * sizeof(t_philo));
+    return(philos_m);   
 }
 
 //funcao para iniciar  e criar thread dos philosofos
@@ -72,4 +69,10 @@ t_philo *boot_philosofos(t_philo *philo, t_table *table, int id)
         return (NULL);
     }
     return (philo);
+}
+void *routine_philo(void *arg)
+{
+    t_philo *philo = (t_philo *)arg;
+    // Implementação da lógica do filósofo (comer, pensar, etc.)
+    return NULL;
 }
