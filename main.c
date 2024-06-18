@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:39:33 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:10 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:23:58 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_isdigit(char *str)
 		if(!(str[i] >= '0' && str[i] <= '9'))
 		{
 			printf("Error\n");
-			printf("Usage: ./philo <3philo> <die> <eat> <sleep> (<must eat>)\n");
+			printf("Usage: ./philo <philo> <die> <eat> <sleep> (<must eat>)\n");
 		
 			return(0);
 		
@@ -47,12 +47,12 @@ int value_parameter(char **argv, int argc)
 	}
 	
 	if(!((atoi(argv[1]) > 0 && atoi(argv[1]) < 201)) 
-		|| (atoi(argv[2]) >= 60)
-		|| (atoi(argv[3]) >= 60)
-		|| (atoi(argv[4]) >= 60))
+		|| !(atoi(argv[2]) >= 60)
+		|| !(atoi(argv[3]) >= 60)
+		|| !(atoi(argv[4]) >= 60))
 	{
 		printf("Error\n");
-        printf("Usage: ./philo <2philo> <die> <eat> <sleep> (<must eat>)\n");
+        printf("Usage: ./philo <philo> <die> <eat> <sleep> (<must eat>)\n");
 		return(0);
 	}
 	return(1);
@@ -78,7 +78,10 @@ int main(int argc, char **argv)
 	else
     {
         printf("Error\n");
-        printf("Usage: ./philo <1philo> <die> <eat> <sleep> (<must eat>)\n");
+        printf("Usage: ./philo <philo> <die> <eat> <sleep> (<must eat>)\n");
     }
+
+	//initialize_table(&table);
+	
 	return(0);
 }

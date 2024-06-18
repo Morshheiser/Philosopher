@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:03 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:38:50 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:35:53 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,14 @@ t_philo *memory_philofos(int num)
     philos_m = malloc (num * sizeof(t_philo));
     return(philos_m);   
 }
-
+void *routine_philo(void *arg)
+{
+    t_philo *philo = (t_philo *)arg;
+    eat(philo);
+    // Implementação da lógica do filósofo (comer, pensar, etc.)
+    printf("id:%d",philo->id);
+    return NULL;
+}
 //funcao para iniciar  e criar thread dos philosofos
 t_philo *boot_philosofos(t_philo *philo, t_table *table, int id)
 {
@@ -63,16 +70,10 @@ t_philo *boot_philosofos(t_philo *philo, t_table *table, int id)
     philo[i].must_eat = 0;
     philo[i].id = i;
     philo[i].table = table;
-    if(pthread_create(philo[i].thread, NULL, routine_philo, &philo[1]) != 0);
+    if(pthread_create(&philo[i].thread, NULL, routine_philo, &philo[1]) != 0)
     {
         printf("Erro ao criar a thread para o filósofo %d\n", i);
         return (NULL);
     }
     return (philo);
-}
-void *routine_philo(void *arg)
-{
-    t_philo *philo = (t_philo *)arg;
-    // Implementação da lógica do filósofo (comer, pensar, etc.)
-    return NULL;
 }

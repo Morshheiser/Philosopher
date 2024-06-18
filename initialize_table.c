@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:00:48 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:38:50 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:36:18 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,15 @@ void create_philos (t_table *table)
     i = 0;
     while(i < table->num_philosofos)
     {
-        create_philo(&philos[i], table, i);
+        if(!create_philo(&philos[i], table, i))
+        {
+            free(philos);
+            return
+        }
         i++;
     }
     table->philo = philos; // Atualiza a tabela com os filósofos criados
+    
 }
 
 void initialize_table(t_table *table)

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:26:45 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/06 14:44:37 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:47:31 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int    memory_forks_mutex(t_table *table);
 int boot_forks_mutex(t_table *table);
 void create_philos (t_table *table);
 void *routine_philo(void *arg);
+void *eat(void *arg);
 
 
 #endif
