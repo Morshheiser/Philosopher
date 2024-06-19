@@ -1,16 +1,21 @@
 
 #include "philo_library.h"
 
-void *routine_philo(int philo_id, int time_eat, int time_sleep, int time_think)
+void *routine_philo(void *arg)
 {
-    printf("Filósofo %d iniciou sua rotina\n", philo_id);    
+    t_philo *philo;
 
+    philo = (t_philo*)arg; 
+    printf("Filósofo %d iniciou sua rotina\n", philo->id);    
+    if(philo->id % 2 == 0)
+        usleep(500000);
     while(1)
     {
-        eat(philo_id,time_eat);
-        philo_sleep(philo_id, time_sleep);
-        think(philo_id, time_think);
+        eat(philo->table);
+        philo_sleep(philo->id, philo->table->time_sleep);
+        think(philo->id, philo->table->time_think);
         // Implementação da lógica do filósofo (comer, pensar, etc.)
     }
+    printf("Filósofo %d terminou sua rotina\n", philo->id);
     return NULL;
 }

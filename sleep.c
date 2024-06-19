@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   think.c                                            :+:      :+:    :+:   */
+/*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 13:05:25 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 21:11:37 by emorshhe         ###   ########.fr       */
+/*   Created: 2024/06/07 20:32:59 by emorshhe          #+#    #+#             */
+/*   Updated: 2024/06/19 16:28:12 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../philo/philo_library.h"
 
-void *think(int philo_id, int time_think)
+void philo_sleep(int philo_id, int time_sleep)
 {
-    int t_think; 
-    
-    t_think = 0;
-    printf("Filósofo %d está pensando\n", philo_id);
-    while((t_think < time_think))
-    {
-        sleep(1);
-        t_think++;
-    }
-    printf("Filósofo %d foi iluminado\n", philo_id);
+    printf("Filósofo %d está dormindo\n", philo_id);
+    usleep(time_sleep);
+    printf("Filósofo %d terminou de dormir\n", philo_id);
 }
-

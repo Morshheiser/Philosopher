@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:03 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 18:35:53 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:23:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,56 +24,44 @@ int    memory_forks_mutex(t_table *table)
     return (1);
 }
 
-//funcao para inicializar os mutexs do garfos
-int boot_forks_mutex(t_table *table)
+//inicia os mutex dos garfos
+int start_forks_mutex(t_table *table)
 {
-    int i;
+    int    i;
 
-    memory_forks_mutex(table);
+    if(!memory_forks_mutex(table))
+        return(0);
     i = 0;
     while(i < table->num_philosofos)
     {
         if(pthread_mutex_init(&table->forks_mutex[i], NULL) != 0)
         {
             printf("%s", "Erro ao inicializar a mutex dos forks\n");
-            return(0);   
-        }
+            return(0);
+        }   
         i++;
     }
     return(1);
-}
+}   
 
-//funcao para alocar memoria nos philosofos
-
-t_philo *memory_philofos(int num)
-{
-    t_philo *philos_m;
-    
-    philos_m = malloc (num * sizeof(t_philo));
-    return(philos_m);   
-}
-void *routine_philo(void *arg)
-{
-    t_philo *philo = (t_philo *)arg;
-    eat(philo);
-    // Implementação da lógica do filósofo (comer, pensar, etc.)
-    printf("id:%d",philo->id);
-    return NULL;
-}
-//funcao para iniciar  e criar thread dos philosofos
-t_philo *boot_philosofos(t_philo *philo, t_table *table, int id)
-{
-    int i;
-
-    i = id;
-    philo[i].is_alive = 1;
-    philo[i].must_eat = 0;
-    philo[i].id = i;
-    philo[i].table = table;
-    if(pthread_create(&philo[i].thread, NULL, routine_philo, &philo[1]) != 0)
+//funcao para alocar memoria nos mutexes do garfos
+void create_philos (t_table *table)
+{     
+    table->philo = (t_philo *) malloc(table->num_philosofos* sizeof(t_philo));
+    if(!table->philo)
     {
-        printf("Erro ao criar a thread para o filósofo %d\n", i);
-        return (NULL);
+        printf("Erro ao alocar memória para os filósofos\n");
+        return;
     }
-    return (philo);
+}
+   
+
+//funcao para iniciar cada philosofo
+void boot_philosofos(int i, t_philo *philo, t_table *table)
+{
+    philo->id = i; 
+    philo->is_alive = 1;
+    philo->table = table;
+    philo->table->must_eat = -1;
+    printf("philofo criado:%d\n",philo->id);
 }

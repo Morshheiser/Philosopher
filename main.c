@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:39:33 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/07 18:23:58 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:16:14 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ int main(int argc, char **argv)
         printf("Usage: ./philo <philo> <die> <eat> <sleep> (<must eat>)\n");
     }
 
-	//initialize_table(&table);
+	start_forks_mutex(&table);
+	start_philo(&table);
+	wait_join_philo(&table);
+	
 	
 	return(0);
 }

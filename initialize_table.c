@@ -6,46 +6,48 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:00:48 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/06/18 13:36:18 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:29:43 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
 
-t_philo *create_philo(t_philo *philo, t_table *table, int id)
-{
-    return (boot_philosofos(philo, table, id));
-    
-
-}
-
-void create_philos (t_table *table)
-{
+// Inicializa cada filósofo    
+void start_philo(t_table *table)
+{    
     int i;
-    t_philo *philos;
     
-    philos = memory_philofos(table->num_philosofos);
-    if(!philos)
-    {
-        printf("Erro ao alocar memória para os filósofos\n");
-        return;
-    }
+    create_philos(table);
     i = 0;
     while(i < table->num_philosofos)
     {
-        if(!create_philo(&philos[i], table, i))
+        boot_philosofos(i + 1, &table->philo[i], table);
+        i++;
+    }
+    
+}
+void wait_join_philo(t_table *table)
+{
+    int i;
+    
+    i = 0;
+    while(i < table->num_philosofos)
+    {
+        if(pthread_create(&table->philo[i].thread, NULL, routine_philo, &table->philo[i]) != 0)
         {
-            free(philos);
-            return
+            printf("Erro ao criar a thread para o filósofo %d\n", i);
+            return;
         }
         i++;
     }
-    table->philo = philos; // Atualiza a tabela com os filósofos criados
-    
+    i = 0;
+    while (i < table->num_philosofos) {
+        if (pthread_join(table->philo[i].thread, NULL) != 0)
+        {
+            printf("Erro ao esperar a thread do filósofo %d\n", i);
+            return;
+        }
+        i++;
+    }
 }
 
-void initialize_table(t_table *table)
-{
-    create_philos(table);
-    //join_thread(table);
-}
