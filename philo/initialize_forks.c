@@ -1,33 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_philo.c                                    :+:      :+:    :+:   */
+/*   boot_forks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 12:03:50 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:58:00 by emorshhe         ###   ########.fr       */
+/*   Created: 2024/08/20 10:18:45 by emorshhe          #+#    #+#             */
+/*   Updated: 2024/08/20 11:32:59 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
 
-//funçao para criar e esperar pelas threads dos folosofos
-int	create_and_join_philo(t_table *table)
+// Allocating memory for the forks
+int	memory_forks_mutex(t_table *table)
 {
-	int i;
+	table->forks = malloc(table->num_philos * sizeof(pthread_mutex_t));
+	if(!table->forks)
+		return (0);
+	return (1);
+}
 
+// Initializing the forks
+int	start_forks_mutex(t_table *table)
+{
+	int	i;
+
+	if(!memory_forks_mutex(table))
+		return (0);
 	i = -1;
 	while(++i < table->num_philos)
 	{
-		if(pthread_create(&table->philos[i].thread, NULL,routine_philo, &table->philos[i]) != 0)
-			return(0);
+		if(pthread_mutex_init(&table->forks[i], NULL))
+			return (0);
 	}
-	i = -1;
-	while(++i < table->num_philos)
-	{
-		if(pthread_join(table->philos[i].thread, NULL) != 0)
-			return(0);
-	}
+	if(pthread_mutex_init(&table->door,NULL))
+		return (0);
 	return(1);
 }
+
+
+

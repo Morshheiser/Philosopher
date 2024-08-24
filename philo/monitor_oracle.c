@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
+// Monitor the philosophers activity and detect if anr philosopher has died
 void	*oracle_day(void *arg)
 {
 	t_table	*table;
@@ -22,7 +22,7 @@ void	*oracle_day(void *arg)
 	i = 0;
 	while(1)
 	{
-		if(check_all_eat(table))
+		if(check_all_sated(table))
 				break;
 		pthread_mutex_lock(&table->door);
 		if(table->finished)
@@ -45,7 +45,7 @@ void	*oracle_day(void *arg)
 	}
 	return NULL;
 }
-
+// Create and manage the oracle thread for the table
 void	create_oracle(t_table *table)
 {
 	if(pthread_create(&table->oracle, NULL, &oracle_day, table) != 0)

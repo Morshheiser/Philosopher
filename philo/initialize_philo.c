@@ -12,7 +12,7 @@
 
 #include "philo_library.h"
 
-// alocando memoria para os filosofos
+// Allocating memory for the philosopher
 void create_philos(t_table *table)
 {
 	table->philos = (t_philo *) malloc(table->num_philos * sizeof(t_philo));
@@ -20,7 +20,7 @@ void create_philos(t_table *table)
 		return;
 }
 
-//inicializando um filosofo
+// Initialize a philosopher
 void boot_philosofos(int i, t_philo *philo, t_table *table)
 {
 	philo->table = table;
@@ -30,7 +30,7 @@ void boot_philosofos(int i, t_philo *philo, t_table *table)
 	philo->last_time_eat = get_current_time();
 }
 
-// inicializando os filosofos
+// Initialize philosopher array,create threads, and set up monitoring
 int start_philo(t_table *table)
 {
 	int	i;

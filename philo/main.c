@@ -12,6 +12,7 @@
 
 #include "philo_library.h"
 
+// check if all characters in the string are digits
 int	ft_isdigit(char *str)
 {
 	int i;
@@ -31,7 +32,7 @@ int	ft_isdigit(char *str)
 	}
 	return (1);
 }
-
+// Check if all command-line arguments are valid numbers and within the specified ranges
 int value_parameter(char **argv, int argc)
 {
 	int i;
@@ -55,7 +56,7 @@ int value_parameter(char **argv, int argc)
 	}
 	return(1);
 }
-
+// Verify that the command-line arguments are valid numbers and fall within the acceptable ranges
 int main(int argc, char **argv)
 {
 	t_table	table;

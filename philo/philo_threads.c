@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_control.c                                     :+:      :+:    :+:   */
+/*   threads_philo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 13:38:30 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/08/20 16:19:02 by emorshhe         ###   ########.fr       */
+/*   Created: 2024/08/20 12:03:50 by emorshhe          #+#    #+#             */
+/*   Updated: 2024/08/20 15:58:00 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
 
-time_t get_current_time(void)
+//Create philosopher threads and wait for their completion
+int	create_and_join_philo(t_table *table)
 {
-	struct timeval tv;
+	int i;
 
-	gettimeofday(&tv, NULL);
-	return((tv.tv_sec*1000) + (tv.tv_sec/1000));
-}
-
-time_t get_formatted_time(time_t start_time)
-{
-	time_t temp;
-
-	temp = get_current_time() - start_time;
-	
-	return(temp);
-}
-
-void	mspleep(time_t time_sleep)
-{
-	time_t	time;
-
-	time = get_current_time();
-	while (get_current_time() - time < time_sleep)
-		usleep(100);
+	i = -1;
+	while(++i < table->num_philos)
+	{
+		if(pthread_create(&table->philos[i].thread, NULL,routine_philo, &table->philos[i]) != 0)
+			return(0);
+	}
+	i = -1;
+	while(++i < table->num_philos)
+	{
+		if(pthread_join(table->philos[i].thread, NULL) != 0)
+			return(0);
+	}
+	return(1);
 }

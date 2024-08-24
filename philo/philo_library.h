@@ -50,11 +50,11 @@ typedef struct s_philo
 	pthread_t	thread;	
 }	t_philo;
 
-//forks
+//Mutex operations
 int	memory_forks_mutex(t_table *table);
 int	start_forks_mutex(t_table *table);
 
-//philos e oracle
+//Philosopher and oracle functions
 void	create_philos(t_table *table);
 void	boot_philosofos(int i, t_philo *philo, t_table *table);
 int		start_philo(t_table *table);
@@ -62,31 +62,31 @@ void	*routine_philo(void *);
 void    *oracle_day(void *arg);
 void    create_oracle(t_table *table);
 
-//threads
+//Thread Management
 int	create_and_join_philo(t_table *table);
 
-//time
+//Time functions
 
 time_t get_current_time(void);
 time_t get_formatted_time(time_t start_time);
 void    mspleep(time_t time_sleep);
 
-//utils
+//Utility Functions
 
 int     ft_isdigit(char *str);
 int	value_parameter(char **argv, int argc);
 void cleanup(t_table *table);
 int     initialize_table(t_table *table);
 
-//actions
+//Actions
 
 int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork);
 int eat(t_philo *philo);
 int think(t_philo *philo);
 int philo_sleep(t_philo *philo);
 
-//check
+//Checks
 
-int check_muest_eat(t_philo *philo)
-
+int check_must_eat(t_philo *philo);
+int check_all_sated(t_table *table);
 #endif

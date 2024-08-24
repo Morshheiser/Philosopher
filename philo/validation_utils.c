@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
-int check_muest_eat(t_philo *philo)
+// Check if the philosopher has met the required eating count
+int check_must_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->door);
 	if(philo->table->must_eat <= 0)
@@ -28,5 +28,9 @@ int check_muest_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->table->door);
 	return(0);	
 }
-
+// Check if all philosophers are sated according to the must-eat requirement
+int check_all_sated(t_table *table)
+{
+	
+}
 

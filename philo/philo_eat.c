@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
+// Attempt to lock two forks (mutexes) to ensure a philosopher can eat
 int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork)
 {
     int right_lock_result;
@@ -28,7 +28,7 @@ int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork)
     }
     return 0;
 }
-
+// Simulate a philosopher eating
 int eat(t_philo *philo)
 {
     int table_conclude;

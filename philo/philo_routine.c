@@ -11,16 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
-int check_must_eat(t_philo *philo)
-{
-    t_table *table = philo->table;
-    if (philo->eat_count >= table->must_eat)
-        return 1;
-    return 0;
-}
-
-
+//Main routine for philosopher threads, handling eating, sleeping, and thinking
 void *routine_philo(void *arg)
 {
 	t_philo	*philo;
@@ -32,7 +23,7 @@ void *routine_philo(void *arg)
 	pthread_mutex_unlock(&philo->table->door);
 	if(table_conclude)
 		return(NULL);
-	printf("Filosofo %d iniciou sua rotina\n", philo->id);
+	printf("Philosopher %d started his routine\n", philo->id);
 	if(philo->id % 2 == 0)
 		mspleep(1000);
 	while(1)
@@ -49,7 +40,7 @@ void *routine_philo(void *arg)
 		if(think(philo))
 			break;
 	}
-	printf("Filósofo %d terminou sua rotina\n", philo->id);
+	printf("Philosopher %d finished his routine\n", philo->id);
 	return(NULL);
 }
 

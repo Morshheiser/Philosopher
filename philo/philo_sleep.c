@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
+//Handle philosophers 's sleeping routine
 int philo_sleep(t_philo *philo)
 {
 	int	table_conclude;

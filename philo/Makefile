@@ -5,17 +5,17 @@ CC = cc
 GFLAGS = -Wall -Wextra -Werror 
 
 SOURCES = main.c \
-	boot_forks.c \
-	boot_philo.c \
-	routine_philo.c \
-	threads_philo.c \
-	eat.c \
-	initialize_table.c \
-	time_control.c \
-	sleep.c \
-	think.c \
-	check_utils \
-	oracle.c \
+	initialize_forks.c \
+	initialize_philo.c \
+	philo_routine.c \
+	philo_threads.c \
+	philo_eat.c \
+	setup_table.c \
+	time_management.c \
+	philo_sleep.c \
+	philo_think.c \
+	validation_utils \
+	monitor_oracle.c \
 	  
 OBJECT = $(SOURCES:.c=.o)
 

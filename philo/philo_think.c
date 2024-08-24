@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
+// Handle philosopher's thinking routine
 int think(t_philo *philo)
 {	
 	int	table_conclude;
@@ -29,4 +29,3 @@ int think(t_philo *philo)
 	pthread_mutex_unlock(&table->door);
 	return(table_conclude);
 }
-

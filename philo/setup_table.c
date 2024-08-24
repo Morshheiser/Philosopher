@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
-
+// Clean up resources used by the table
 void cleanup(t_table *table)
 {
 	int	i;
@@ -26,7 +26,7 @@ void cleanup(t_table *table)
 	free(table->forks);
 	free(table->philos);
 }
-
+//Initialize the table and its resources
 int	initialize_table(t_table *table)
 {
 	if(pthread_mutex_init(&table->door, NULL) != 0)
