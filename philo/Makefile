@@ -14,6 +14,7 @@ SOURCES = main.c \
 	time_control.c \
 	sleep.c \
 	think.c \
+	check_utils \
 	oracle.c \
 	  
 OBJECT = $(SOURCES:.c=.o)

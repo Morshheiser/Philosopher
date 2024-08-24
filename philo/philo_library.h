@@ -85,5 +85,8 @@ int eat(t_philo *philo);
 int think(t_philo *philo);
 int philo_sleep(t_philo *philo);
 
+//check
+
+int check_muest_eat(t_philo *philo)
 
 #endif
