@@ -14,7 +14,7 @@ SOURCES = main.c \
 	time_management.c \
 	philo_sleep.c \
 	philo_think.c \
-	validation_utils \
+	validation_utils.c \
 	monitor_oracle.c \
 	  
 OBJECT = $(SOURCES:.c=.o)

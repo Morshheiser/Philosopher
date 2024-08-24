@@ -22,7 +22,7 @@ void	*oracle_day(void *arg)
 	i = 0;
 	while(1)
 	{
-		if(check_all_sated(table))
+		if(check_all_philo_finalize(table))
 				break;
 		pthread_mutex_lock(&table->door);
 		if(table->finished)
@@ -30,7 +30,7 @@ void	*oracle_day(void *arg)
 			pthread_mutex_unlock(&table->door);
 			break;
 		}
-		if (get_current_time() - table->philos[i].last_time_eat > table->time_to_die)
+		if (get_current_time() - table->philos[i].last_time_eat > table->time_die)
 		{
 			if(!table->finished)
 				printf("%ld %d died\n", get_formatted_time(table->begin_time), i + 1);

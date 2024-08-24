@@ -89,4 +89,5 @@ int philo_sleep(t_philo *philo);
 
 int check_must_eat(t_philo *philo);
 int check_all_sated(t_table *table);
+int check_all_philo_finalize(t_table *table);
 #endif
