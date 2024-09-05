@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   oracle.c                                           :+:      :+:    :+:   */
+/*   monitor_oracle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,31 +25,25 @@ void	*oracle_day(void *arg)
 		if(check_all_philo_finalize(table))
 				break;
 		pthread_mutex_lock(&table->door);
-		if(table->finished)
-		{
-			pthread_mutex_unlock(&table->door);
-			break;
-		}
 		if (get_current_time() - table->philos[i].last_time_eat > table->time_die)
 		{
 			if(!table->finished)
 				printf("%ld %d died\n", get_formatted_time(table->begin_time), i + 1);
 			table->finished = 1;
-			pthread_mutex_unlock(&table->door);
 			break;
 		}
-		pthread_mutex_unlock(&table->door);
 		i = (i + 1) % table->num_philos;
-		usleep(1000);
-
+		pthread_mutex_unlock(&table->door);
+	
 	}
+	pthread_mutex_unlock(&table->door);
+	usleep(1000);
+
 	return NULL;
 }
 // Create and manage the oracle thread for the table
 void	create_oracle(t_table *table)
 {
 	if(pthread_create(&table->oracle, NULL, &oracle_day, table) != 0)
-		return ;
-	if(pthread_join(table->oracle, NULL) != 0)
 		return ;
 }

@@ -2,13 +2,12 @@ NAME = philo
 
 CC = cc
 
-GFLAGS = -Wall -Wextra -Werror 
+GFLAGS = -Wall -Wextra -Werror -g
 
 SOURCES = main.c \
 	initialize_forks.c \
 	initialize_philo.c \
 	philo_routine.c \
-	philo_threads.c \
 	philo_eat.c \
 	setup_table.c \
 	time_management.c \

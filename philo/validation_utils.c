@@ -15,15 +15,11 @@
 int check_must_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->door);
-	if(philo->table->must_eat < 1)
+	if((philo->table->must_eat < 1) 
+	|| (philo->eat_count <= philo->table->must_eat))
 	{
 		pthread_mutex_unlock(&philo->table->door);
 		return (1);
-	}
-	if(philo->eat_count <= philo->table->must_eat)
-	{
-		pthread_mutex_unlock(&philo->table->door);
-		return(1);
 	}
 	pthread_mutex_lock(&philo->table->door);
 	return(0);	
@@ -58,8 +54,7 @@ int check_all_philo_finalize(t_table *table)
 		pthread_mutex_lock(&table->door);
 		table->finished = 1;
 		pthread_mutex_unlock(&table->door);
-		return(1);
 	}
 
-	return(0);
+	return(table->finished);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_library.h"
+/*
 // Attempt to lock two forks (mutexes) to ensure a philosopher can eat
 int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork)
 {
@@ -27,20 +28,17 @@ int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork)
 	return -1;
     }
     return 0;
-}
+}*/
 // Simulate a philosopher eating
 int eat(t_philo *philo)
 {
-    int table_conclude;
-    int right_fork;
-    int left_fork;
+    int table_conclude = 0;
+    int	forks[2];
+
     t_table *table = philo->table;
 
-    right_fork = philo->id - 1;
-    left_fork = philo->id % table->num_philos;
-
-    if (lock_two_forks(&(table->forks[right_fork]), &(table->forks[left_fork])) != 0)
-        return -1;
+    if (!get_forks(philo, forks))
+		return (table_conclude);
     pthread_mutex_lock(&table->door);
     philo->last_time_eat = get_current_time();
     if (!table->finished)
@@ -49,8 +47,7 @@ int eat(t_philo *philo)
     table_conclude = table->finished;
     pthread_mutex_unlock(&table->door);
     mspleep(table->time_eat);
-    pthread_mutex_unlock(&(table->forks[left_fork]));
-    pthread_mutex_unlock(&(table->forks[right_fork]));
+    release_forks(forks[0], forks[1], philo);
     return (table_conclude);
 }
 

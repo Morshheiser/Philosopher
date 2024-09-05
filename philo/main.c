@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:52 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:11:03 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:51:26 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int main(int argc, char **argv)
 		table.time_die = atoi(argv[2]);
 		table.time_eat = atoi(argv[3]);
 		table.time_sleep = atoi(argv[4]);
+		table.finished = 0;
+		table.begin_time = get_current_time();
+		table.finished_eat = 0;
 		if(argv[5] && atoi(argv[5]) > 0)
 			table.must_eat = atoi(argv[5]);
 	

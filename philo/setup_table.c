@@ -14,29 +14,29 @@
 // Clean up resources used by the table
 void cleanup(t_table *table)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while(i < table->num_philos)
-	{
-		pthread_mutex_destroy(&table->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&table->door);
-	free(table->forks);
-	free(table->philos);
+    if (table->forks != NULL)
+    {
+        i = 0;
+        while (i < table->num_philos)
+        {
+            pthread_mutex_destroy(&table->forks[i]);
+            i++;
+        }
+        free(table->forks);
+    }
+    pthread_mutex_destroy(&table->door);
+    if (table->philos != NULL)
+		free(table->philos);
 }
+
 //Initialize the table and its resources
 int	initialize_table(t_table *table)
 {
 	if(pthread_mutex_init(&table->door, NULL) != 0)
 		return(0);
-	table->finished = 0;
-	if(!start_forks_mutex(table))
-		return(0);
 	if(!start_philo(table))
-		return(0);
-	if(!create_and_join_philo(table))
 		return(0);
 	return(1);
 }

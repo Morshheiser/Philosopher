@@ -32,7 +32,6 @@ typedef struct s_table
 	int				finished_eat;
 	int				time_sleep;
 	int				time_die;
-	int				time_think;
 	t_philo			*philos;
 	pthread_t		oracle;
 	pthread_mutex_t	door;
@@ -42,7 +41,6 @@ typedef struct s_table
 
 typedef struct s_philo
 {
-	int			is_alive;
 	int			id;
 	int			eat_count;
 	time_t		last_time_eat;
@@ -55,16 +53,18 @@ int	memory_forks_mutex(t_table *table);
 int	start_forks_mutex(t_table *table);
 
 //Philosopher and oracle functions
-void	create_philos(t_table *table);
+void	create_philos_forks(t_table *table);
 void	boot_philosofos(int i, t_philo *philo, t_table *table);
 int		start_philo(t_table *table);
 void	*routine_philo(void *);
 void    *oracle_day(void *arg);
 void    create_oracle(t_table *table);
+void	free_forks(pthread_mutex_t *forks, int num_philos);
+int	release_forks(int first_fork, int second_fork, t_philo *philo);
+int	get_forks(t_philo *philo, int *forks_pointer);
+int	get_second_fork(t_philo *philo);
 
-//Thread Management
-int	create_and_join_philo(t_table *table);
-
+int	get_first_fork(t_philo *philo);
 //Time functions
 
 time_t get_current_time(void);

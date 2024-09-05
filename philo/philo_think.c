@@ -19,13 +19,12 @@ int think(t_philo *philo)
 	
 	table_conclude = 0;
 	pthread_mutex_lock(&table->door);
-    	if(!table->finished)
+    if(!table->finished)
 	{
 		printf("%ld %d is thinking\n", 
 		get_formatted_time(table->begin_time), philo->id);
 	}
 	table_conclude = table->finished;	
-	mspleep(table->time_think);
 	pthread_mutex_unlock(&table->door);
 	return(table_conclude);
 }
