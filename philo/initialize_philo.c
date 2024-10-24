@@ -6,15 +6,16 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:39:15 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/23 14:56:51 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 07:41:07 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
+
 // Allocating memory for the philosopher
 int	create_philos_forks(t_table *table)
 {
-	table->philos = (t_philo *) malloc(table->num_philos * sizeof(t_philo));
+	table->philos = (t_philo *)malloc(table->num_philos * sizeof(t_philo));
 	if (!table->philos)
 		return (0);
 	if (memory_forks_mutex(table) != 1)
@@ -34,14 +35,13 @@ int	boot_philosofos(int i, t_philo *philo, t_table *table)
 	philo->id = i;
 	philo->eat_count = 0;
 	philo->last_time_eat = table->begin_time;
-	if (pthread_create(&philo->thread,
-			NULL, routine_philo, philo) != 0)
+	if (pthread_create(&philo->thread, NULL, routine_philo, philo) != 0)
 		return (0);
 	return (1);
 }
 
 // Initialize philosopher array,create threads, and set up monitoring
-//Create philosopher threads and wait for their completion
+// Create philosopher threads and wait for their completion
 int	start_philo(t_table *table)
 {
 	int	i;
