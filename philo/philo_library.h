@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_library.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 09:43:21 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/08/20 14:57:45 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 00:20:48 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct s_table
 	int				num_philos;
 	int				must_eat;
 	int				finished;
-	int				time_eat;
+	int				time_to_eat;
 	int				finished_eat;
-	int				time_sleep;
-	int				time_die;
+	int				time_to_sleep;
+	int				time_to_die;
 	t_philo			*philos;
 	pthread_t		oracle;
 	pthread_mutex_t	door;
@@ -53,41 +53,38 @@ int	memory_forks_mutex(t_table *table);
 int	start_forks_mutex(t_table *table);
 
 //Philosopher and oracle functions
-void	create_philos_forks(t_table *table);
-void	boot_philosofos(int i, t_philo *philo, t_table *table);
-int		start_philo(t_table *table);
+void	error_initialize_table(t_table *table);
 void	*routine_philo(void *);
-void    *oracle_day(void *arg);
-void    create_oracle(t_table *table);
-void	free_forks(pthread_mutex_t *forks, int num_philos);
-int	release_forks(int first_fork, int second_fork, t_philo *philo);
+void	*oracle_day(void *arg);
+int	create_oracle(t_table *table);
+int	create_philos_forks(t_table *table);
+int	boot_philosofos(int i, t_philo *philo, t_table *table);
+int	start_philo(t_table *table);
+int	release_forks(int *forks, t_philo *philo, int position_forks);
 int	get_forks(t_philo *philo, int *forks_pointer);
-int	get_second_fork(t_philo *philo);
 
-int	get_first_fork(t_philo *philo);
 //Time functions
 
-time_t get_current_time(void);
-time_t get_formatted_time(time_t start_time);
-void    mspleep(time_t time_sleep);
+time_t			get_current_time(void);
+time_t			get_formatted_time(time_t start_time);
+void			mspleep(time_t time_sleep);
 
 //Utility Functions
 
-int     ft_isdigit(char *str);
-int	value_parameter(char **argv, int argc);
-void cleanup(t_table *table);
-int     initialize_table(t_table *table);
+void	cleanup(t_table *table);
+int	ft_isdigit(char *str);
+int	value_parameter(char **argv, int argc, t_table *table);
+int	initialize_table(t_table *table);
 
 //Actions
 
-int lock_two_forks(pthread_mutex_t *right_fork, pthread_mutex_t *left_fork);
-int eat(t_philo *philo);
-int think(t_philo *philo);
-int philo_sleep(t_philo *philo);
+int	eat(t_philo *philo);
+int	think(t_philo *philo);
+int	philo_sleep(t_philo *philo);
 
-//Checks
+//validation_utils
 
-int check_must_eat(t_philo *philo);
-int check_all_sated(t_table *table);
-int check_all_philo_finalize(t_table *table);
+int	check_must_eat(t_philo *philo);
+int	check_all_sated(t_table *table);
+int	check_all_philo_finalize(t_table *table);
 #endif

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sleep.c                                            :+:      :+:    :+:   */
+/*   philo_sleep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.rio>         +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:24:35 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/08/20 17:05:26 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 00:02:18 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
-//Handle philosophers 's sleeping routine
-int philo_sleep(t_philo *philo)
-{
-	int	table_conclude;
-	t_table	*table = philo->table;
 
+//Handle philosophers 's sleeping routine
+int	philo_sleep(t_philo *philo)
+{
+	t_table	*table;
+	int		table_conclude;
+
+	table = philo->table;
 	table_conclude = 0;
 	pthread_mutex_lock(&table->door);
-	if(!table->finished)
+	if (!table->finished)
 	{
 		printf("%ld %d is sleeping\n", 
-		get_formatted_time(table->begin_time), philo->id);
+			get_formatted_time(table->begin_time), philo->id + 1);
 	}
 	table_conclude = table->finished;
-	mspleep(table->time_sleep);
 	pthread_mutex_unlock(&table->door);
-	return(table_conclude);
+	mspleep(table->time_to_sleep);
+	return (table_conclude);
 }

@@ -1,10 +1,17 @@
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+COLOUR_YELLOW=\033[0;33m
+COLOUR_GREY=\033[0;90m
+COLOUR_END=\033[0m
+
 NAME = philo
 
 CC = cc
 
-GFLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -pthread
 
-SOURCES = main.c \
+SRCS = main.c \
 	initialize_forks.c \
 	initialize_philo.c \
 	philo_routine.c \
@@ -15,21 +22,81 @@ SOURCES = main.c \
 	philo_think.c \
 	validation_utils.c \
 	monitor_oracle.c \
-	  
-OBJECT = $(SOURCES:.c=.o)
 
-.c.o:
-	$(CC) $(GFLAGS) -c $< -o $(<:.c=.o)
+OBJS = ${SRCS:.c=.o}
 
-$(NAME) : $(OBJECT)
-	$(CC) $(GFLAGS) -o $(NAME) $(OBJECT)
+PHILOS = 5
 
-all : $(NAME)
+DIE = 800
 
-clean :
-	rm -rf $(OBJECT)
+EAT = 200
+
+SLEEP = 200
+
+#NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP) 7
+
+#NUMBERS					=	1 800 200 200   # The philosopher should not eat and should die
+#NUMBERS					=	5 800 200 200   # No philosopher should die.
+#NUMBERS					=	5 900 200 200 7 # No philosopher should die.
+#NUMBERS					=	4 410 200 200   # No philosopher should die.
+#NUMBERS					=	4 310 200 100 7 # One philosopher should die.
+
+#NUMBERS					=	4 10 200 100	#One philosopher should die
+
+#NUMBERS					=	5 410 200 100 7 # One philosopher should die.
+#NUMBERS					=	5 120 80 80 	# Moana tolds all will die
+#NUMBERS					=	2 200 50 50 1
+#NUMBERS					=	50 1000 60 60 1
+#NUMBERS					=	2 110 50 50 2
+
+#NUMBERS					=	4 200 205 200	# One should die
+#NUMBERS					=	4 410 200 200 10	# No one should die. Stop after 10
+#NUMBERS					=	-5 600 200 200	# ERROR - CRASH
+#NUMBERS					=	5 -5 200 200	# ERROR - CRASH
+#NUMBERS					=	4 600 -5 200	# ERROR - CRASH
+#NUMBERS					=	5 600 200 -5	# ERROR - CRASH
+#NUMBERS					=	4 600 200 200 -5	# ERROR - CRASH
+#NUMBERS					=	5 600 150 150	# No one should die
+#NUMBERS					=	4 410 200 200	# No one should die
+#NUMBERS					=	100 800 200 200	# No one should die
+#NUMBERS					=	105 800 200 200	# No one should die
+
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+all: $(NAME)
+	@echo "$(COLOUR_BLUE) philo ready to be used$(COLOUR_END)"
+
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+
+clean:
+	rm -f main.o errors.o philo_utils.o structs.o philosophers	rm -f $(OBJS)
+	@echo "Objects deleted"
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
+	@echo "All cleaned"
 
-re : fclean all
+re: fclean all
+
+run: re
+	./$(NAME) $(NUMBERS)
+
+val: re
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(NUMBERS)
+
+hell: re
+	valgrind --tool=helgrind -s ./$(NAME) $(NUMBERS)
+#  
+
+count: re
+	./$(NAME) $(NUMBERS) | grep "1 is eating" | wc -l
+
+norm:
+		@echo "$(COLOUR_BLUE)Passando a Norminette com a flag -R CheckForbiddenSourceHeader: $(COLOUR_END)"
+	@-norminette -R CheckForbiddenSourceHeader
+
+sanitize: fclean $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME) -fsanitize=address
+	./$(NAME) $(NUMBERS)
