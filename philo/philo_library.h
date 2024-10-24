@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_library.c                                    :+:      :+:    :+:   */
+/*   philo_library.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 09:43:21 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 07:36:40 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:14:16 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ int						philo_sleep(t_philo *philo);
 int						check_must_eat(t_philo *philo);
 int						check_all_sated(t_table *table);
 int						check_all_philo_finalize(t_table *table);
+int						ft_atoi(char *nptr);
 #endif

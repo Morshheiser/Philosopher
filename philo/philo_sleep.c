@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:24:35 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 00:02:18 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:06:11 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	philo_sleep(t_philo *philo)
 	pthread_mutex_lock(&table->door);
 	if (!table->finished)
 	{
-		printf("%ld %d is sleeping\n", 
+		printf("%ld %d is sleeping\n",
 			get_formatted_time(table->begin_time), philo->id + 1);
 	}
 	table_conclude = table->finished;

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:52 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/23 23:55:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:09:50 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	value_parameter(char **argv, int argc, t_table *table)
 		i++;
 	}
 	table->begin_time = get_current_time();
-	table->num_philos = atoi(argv[1]);
-	table->time_to_die = atoi(argv[2]);
-	table->time_to_eat = atoi(argv[3]);
-	table->time_to_sleep = atoi(argv[4]);
+	table->num_philos = ft_atoi(argv[1]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5] && atoi(argv[5]) > 0)
-		table->must_eat = atoi(argv[5]);
+		table->must_eat = ft_atoi(argv[5]);
 	error_initialize_table(table);
 	return (1);
 }
@@ -76,14 +76,12 @@ void	error_initialize_table(t_table *table)
 	if (table->time_to_die < 60
 		|| table->time_to_eat < 60 || table->time_to_sleep < 60)
 		printf("\nTimestamps needs to be greater than 60\n\n");
-//if (argv[5] && atoi(argv[5]) > 0)
 	if (table->num_philos < 0 || table->time_to_die < 0
 		|| table->time_to_eat < 0 || table->time_to_sleep < 0
 		|| table->must_eat < 0)
 		printf("\nNegative parameters are not accepted.\n\n");
 	return ;
 }
-
 
 // Verify that the command-line arguments are valid numbers and fall 
 //within the acceptable ranges

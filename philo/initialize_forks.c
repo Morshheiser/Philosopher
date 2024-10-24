@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:18:45 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/23 23:26:17 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:08:01 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	take_fork(t_philo *philo, int fork_id)
 	pthread_mutex_lock(&philo->table->door);
 	if (!philo->table->finished)
 	{
-		printf("%ld %d has taken a fork\n", 
+		printf("%ld %d has taken a fork\n",
 			get_formatted_time(philo->table->begin_time), philo->id + 1);
 	}
 	pthread_mutex_unlock(&philo->table->door);
@@ -97,4 +97,3 @@ int	release_forks(int *forks, t_philo *philo, int position_forks)
 		get_formatted_time(philo->table->begin_time), philo->id + 1, forks);
 	return (0);
 }
-
