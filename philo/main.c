@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:52 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 17:09:50 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/25 03:21:04 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_isdigit(char *str)
 		if (!(str[i] >= '0' && str[i] <= '9'))
 		{
 			printf("\nError\n");
-			printf("\nLetters are not accepted.\n");
+			printf("\nOnly positive numbers are accepted.\n");
 			printf("\nUsage: ./philo <philo> <die> <eat> <sleep> (<must eat>)");
 			printf("\n\n");
 			return (0);
@@ -56,35 +56,35 @@ int	value_parameter(char **argv, int argc, t_table *table)
 	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5] && atoi(argv[5]) > 0)
 		table->must_eat = ft_atoi(argv[5]);
-	error_initialize_table(table);
-	return (1);
-}
-
-// Validates the parameters for initializing the philosopher table.
-// Prints error messages for any invalid parameters.
-void	error_initialize_table(t_table *table)
-{
-	if (!(table->num_philos > 0 && table->num_philos < 201)
-		|| !(table->time_to_die >= 60) || !(table->time_to_eat >= 60)
-		|| !(table->time_to_sleep >= 0))
+	if (error_initialize_table(table))
 	{
 		printf("\nError\n");
 		printf("Usage: ./philo <philo> <die> <eat> <sleep> (<must eat>)\n");
+		return (0);
 	}
-	if (!(table->num_philos > 0 && table->num_philos < 200))
-		printf("\nOnly 1 to 200 philosophers are accepted.\n\n");
-	if (table->time_to_die < 60
-		|| table->time_to_eat < 60 || table->time_to_sleep < 60)
-		printf("\nTimestamps needs to be greater than 60\n\n");
-	if (table->num_philos < 0 || table->time_to_die < 0
-		|| table->time_to_eat < 0 || table->time_to_sleep < 0
-		|| table->must_eat < 0)
-		printf("\nNegative parameters are not accepted.\n\n");
-	return ;
+	return (1);
 }
 
-// Verify that the command-line arguments are valid numbers and fall 
-//within the acceptable ranges
+/* Validates the parameters for initializing the philosopher table.
+	Prints error messages for any invalid parameters.*/
+int	error_initialize_table(t_table *table)
+{
+	if (!(table->num_philos > 0 && table->num_philos < 200))
+	{
+		printf("\nOnly 1 to 200 philosophers are accepted.\n\n");
+		return (0);
+	}
+	if (table->time_to_die < 60 || table->time_to_eat < 60
+		|| table->time_to_sleep < 60)
+	{
+		printf("\nTimestamps needs to be greater than 60\n\n");
+		return (0);
+	}
+	return (1);
+}
+
+/* Verify that the command-line arguments are valid numbers and fall
+ within the acceptable ranges */
 int	main(int argc, char **argv)
 {
 	t_table	table;

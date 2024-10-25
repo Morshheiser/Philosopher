@@ -6,12 +6,13 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 16:50:20 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 17:14:08 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/25 03:18:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_library.h"
 
+//Converts a string to an integer.
 int	ft_atoi(char *nptr)
 {
 	int	sign;
@@ -64,7 +65,7 @@ int	check_all_sated(t_table *table)
 	while (++i < table->num_philos)
 	{
 		pthread_mutex_lock(&table->door);
-		if (table->philos[i].eat_count > table->must_eat)
+		if (table->philos[i].eat_count == table->must_eat)
 		{
 			if (++all_sated >= table->num_philos)
 			{

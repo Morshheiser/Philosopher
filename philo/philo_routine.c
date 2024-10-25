@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:19:05 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 00:01:26 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/25 01:25:19 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	*routine_philo(void *arg)
 	{
 		if (table_conclude)
 			break ;
-		if (think(philo))
-			break ;
 		if (eat(philo))
 			break ;
 		if (philo_sleep(philo))
+			break ;
+		if (think(philo))
 			break ;
 	}
 	return (NULL);

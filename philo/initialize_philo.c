@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:39:15 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 07:41:07 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/25 03:19:24 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	boot_philosofos(int i, t_philo *philo, t_table *table)
 	return (1);
 }
 
-// Initialize philosopher array,create threads, and set up monitoring
-// Create philosopher threads and wait for their completion
+/* Initialize philosopher array,create threads, and set up monitoring
+ Create philosopher threads and wait for their completion*/
 int	start_philo(t_table *table)
 {
 	int	i;

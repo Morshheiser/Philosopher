@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 09:43:21 by emorshhe          #+#    #+#             */
-/*   Updated: 2024/10/24 17:14:16 by emorshhe         ###   ########.fr       */
+/*   Updated: 2024/10/25 02:45:03 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int						start_forks_mutex(t_table *table);
 
 void					*routine_philo(void *arg);
 void					*oracle_day(void *arg);
-void					error_initialize_table(t_table *table);
+int						error_initialize_table(t_table *table);
 int						create_oracle(t_table *table);
 int						create_philos_forks(t_table *table);
 int						boot_philosofos(int i, t_philo *philo, t_table *table);
@@ -80,7 +80,7 @@ int						initialize_table(t_table *table);
 
 // Actions
 
-int						eat(t_philo *philo);
+int						eat(t_philo *table);
 int						think(t_philo *philo);
 int						philo_sleep(t_philo *philo);
 
